@@ -99,7 +99,7 @@ yum -y install gcc gcc-c++
 
 tar.gz 파일의 링크 주소를 복사
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/67780144/93232580-0730c780-f7b5-11ea-9c22-812681f476cb.png)
 
 ```bash
 >>>> wget이 없다면 설치 
@@ -131,7 +131,7 @@ vim httpd.conf → :se nu 후에 들어가서 대략 95번째 라인의 ServerNa
 
 위에는 주석에 설명이 잘 되어있다.
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%201.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%201.png)
+![Untitled 1](https://user-images.githubusercontent.com/67780144/93232582-07c95e00-f7b5-11ea-8225-71f661b8690e.png)
 
 - conf.d 디렉터리에 mod_jk.conf, uriworkermap.properties, [workers.properties](http://workers.properties) 3가지 파일을 추가시켜준다.
 
@@ -218,7 +218,7 @@ mod_jk.conf에서 uriworkermap의 설정파일은 conf.d 디렉터리 내에 있
 
     apache는 정적인 컨텐츠를 처리하기 위해 존재하는 서버이므로 *.html, *.jpg, *.gif는 apache단에서 처리하도록 준다.
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%202.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%202.png)
+![Untitled 2](https://user-images.githubusercontent.com/67780144/93232586-0861f480-f7b5-11ea-8f2f-bad5b4ada71e.png)
 
 - apachectl configtest → 문법 체크
 
@@ -247,7 +247,7 @@ test.html
 test
 ```
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%203.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%203.png)
+![Untitled 3](https://user-images.githubusercontent.com/67780144/93232587-08fa8b00-f7b5-11ea-9f33-e1eb13862f33.png)
 
 - 위의 출력물을 통해 html 확장자를 가진 파일은 web server단에서 처리
 
@@ -317,7 +317,7 @@ AJP/1.3 요청은 8009로 받도록 되어있다.
 
 address, secretRequired, URIEncoding 추가
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%204.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%204.png)
+![Untitled 4](https://user-images.githubusercontent.com/67780144/93232590-09932180-f7b5-11ea-8934-01306f02fea0.png)
 
 ```bash
 <!-- Define an AJP 1.3 Connector on port 8009 -->
@@ -341,7 +341,7 @@ systemctl restart tomcat && systemctl enable tomcat
 
 ### Apache → Tomcat
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%205.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%205.png)
+![Untitled 5](https://user-images.githubusercontent.com/67780144/93232593-09932180-f7b5-11ea-9f6b-ca48bd30ab16.png)
 
 - Apache의 IP:80 을 통해 톰캣 서버로 접속된것을 확인할 수 있다.
 
@@ -488,7 +488,7 @@ cp mysql-connector-java-5.1.48-bin.jar /usr/share/tomcat7/lib/
 
 → context 내부에 추가해준다.
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%206.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%206.png)
+![Untitled 6](https://user-images.githubusercontent.com/67780144/93232599-0ac44e80-f7b5-11ea-8bd7-84e539a7d170.png)
 
 ```bash
 <Resource       name="jdbc/dbmy"
@@ -521,7 +521,7 @@ cp mysql-connector-java-5.1.48-bin.jar /usr/share/tomcat7/lib/
 
 → context에 적어준 resource명을 가져옴으로써 사용한다.
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%207.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%207.png)
+![Untitled 7](https://user-images.githubusercontent.com/67780144/93232600-0ac44e80-f7b5-11ea-9c78-2ac7fa15c330.png)
 
 ```bash
 <resource-ref>
@@ -534,7 +534,7 @@ cp mysql-connector-java-5.1.48-bin.jar /usr/share/tomcat7/lib/
 
 5. DB 연동 테스트를 위한 mariadb_test.jsp 파일을 생성
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%208.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%208.png)
+![Untitled 8](https://user-images.githubusercontent.com/67780144/93232602-0b5ce500-f7b5-11ea-90ea-04eea74d0502.png)
 
 ```bash
 cd /var/lib/tomcat7/webapps/ROOT
@@ -577,7 +577,7 @@ cd /var/lib/tomcat7/webapps/ROOT
 
 - Test ⇒ apache server_ip/mariadb_test.jsp
 
-![Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%209.png](Apache+Tomcat+MariaDB%20c9e97d58812e4bd699ae33209e566a94/Untitled%209.png)
+![Untitled 9](https://user-images.githubusercontent.com/67780144/93232606-0bf57b80-f7b5-11ea-8503-f8456ae81124.png)
 
 ### Apache → Tomcat → MariaDB
 
