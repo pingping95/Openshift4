@@ -53,26 +53,21 @@
 
 ## 1. Firewall
 
-| TCP |   |
+| TCP | 설명 |
 |---|:---:|
 | 2379-2380| etcd server, peer, and metrics ports |
 | 6443 | Kubernetes API |
-| 9000-9999 | Host level services, including the node exporter on ports 9100-9101 and the Cluster Version Operator on port 9099 |
+| 9000-9999 | Host level services, including the node 
+exporter on ports 9100-9101 and the Cluster Version Operator on port 9099 |
 | 10249-10259 | The default ports that Kubernetes reserves |
 | 10256 | openshift-sdn |
 | 8080 | Bastion Node`s Web file Server Port |
 
+| UDP | 설명 |
+|---|:---:|
+| 9000-9999| Host level services, including the node exportet on ports 9100-9101 |
+| 30000-32767 | Kubernetes NodePort |
 
-- TCP
-    - 2379-2380 : etcd server, peer, and metrics ports
-    - 6443 : Kubernetes API
-    - 9000-9999 : Host level services, including the node exporter on ports 9100-9101 and the Cluster Version Operator on port 9099.
-    - 10249-10259 : The default ports that Kubernetes reserves
-    - 10256 : openshift-sdn
-    - 8080 : Bastion Node`s Web file Server Port
-- UDP
-    - 9000-9999 : Host level services, including the node exporter on ports 9100-9101
-    - 30000-32767 : Kubernetes NodePort
 
 ## 2. DNS Records
 
