@@ -38,6 +38,7 @@
 
 ## 0. IP & FQDN Settings
 - IP는 아래처럼 설정해줌
+
 | Server Name | FQDN | IP Address |
 |---|:---:|---:|
 | Bootstrap | bootstrap.redhat2.cccr.local | 10.10.10.10 |
