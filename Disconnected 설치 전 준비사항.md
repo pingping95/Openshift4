@@ -119,11 +119,11 @@
 
     ○ 패키지 다운을 위한 repository 압축 파일 (repos.tar.gz)
 
-    -
+    ``
 
     ○ OCP 4 배포시 필요한 이미지 압축 파일 (data.tar.gz)
 
-    -
+    ``
 
     ○ Private registry 구성을 위한 이미지 (registry.tar)
 
@@ -188,6 +188,8 @@ tar cvfz repos.tar.gz /var/repos/*
 - oc cli install
 
 [https://cloud.redhat.com/openshift/install/metal](https://cloud.redhat.com/openshift/install/metal)
+
+위 링크에서 다운로드 받을 수 있다.
 
 ```bash
 # yum -y install wget
@@ -321,7 +323,7 @@ dGVzdDoxMjM0
     }
   }
 }
--> 빨간 부분 추가
+-> bastion.redhat.cccr.local:5000 부분 추가
 
 → image registry Domain Name, Port 기입
 
@@ -355,6 +357,7 @@ podman run --name mirror-registry -p 5000:5000 \
 -e REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED=true \
 -d docker.io/library/registry:2
 
+# curl로 repo test
 curl -u test:1234 -k https://bastion.cccr.local:5000/v2/_catalog
 {"repositories":[]}
 ```
@@ -389,7 +392,7 @@ bastion.cccr.local:5000/
 ..
 ..
 ..
-
+# 아래 부분 복사해놓기, install-config.yaml 에서 사용함
 **imageContentSources:
 - mirrors:
   - bastion.redhat2.cccr.local:5000/ocp4/openshift4
