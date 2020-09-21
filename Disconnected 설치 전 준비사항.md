@@ -40,15 +40,28 @@
 
 | Server Name | FQDN | IP Address |
 |---|:---:|---:|
-| `Bootstrap` | bootstrap.redhat2.cccr.local |10.10.10.10 |
-|  |  | |
-|  |  | |
-|  |  | |
-|  |  | |
-|  |  | |
-|  |  | |
+| Bootstrap | bootstrap.redhat2.cccr.local | 10.10.10.10 |
+| Master #1 | master-1.redhat2.cccr.local | 10.10.10.11 |
+| Master #2 | master-2.redhat2.cccr.local | 10.10.10.12 |
+| Master #3 | master-3.redhat2.cccr.local | 10.10.10.13 |
+| Infra #1 | infra-1.redhat2.cccr.local | 10.10.10.14 |
+| Infra #2 | infra-1.redhat2.cccr.local | 10.10.10.15 |
+| Router | infra-2.edhat2.cccr.local | 10.10.10.16 |
+| bastion | bastion.edhat2.cccr.local | 10.10.10.17 |
+| Service #1 | service-1.edhat2.cccr.local | 10.10.10.18 |
+| Service #2 | service-2.edhat2.cccr.local | 10.10.10.19 |
 
 ## 1. Firewall
+
+| TCP |   |
+|---|:---:|
+| 2379-2380| etcd server, peer, and metrics ports |
+| 6443 | Kubernetes API |
+| 9000-9999 | Host level services, including the node exporter on ports 9100-9101 and the Cluster Version Operator on port 9099 |
+| 10249-10259 | The default ports that Kubernetes reserves |
+| 10256 | openshift-sdn |
+| 8080 | Bastion Node`s Web file Server Port |
+
 
 - TCP
     - 2379-2380 : etcd server, peer, and metrics ports
