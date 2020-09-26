@@ -1,133 +1,70 @@
 # Disconnected 설치 전 준비사항
 
-- 보통 3 Master, 2 Infra를 많이 사용한다. 본 프로젝트에서는 Resource의 제약으로 인해 아래와 같은 Spec으로 프로젝트를 진행할 것이다.
-- 
+# 1. 목적
 
-- **Bastion**
-    - vCPU : 4
-    - RAM : 8 GB
-    - Storage : 100 GB
-    - Data : 100 GB
-- **BootStrap**
-    - vCPU : 4
-    - RAM : 16 GB
-    - Storage : 120 GB
-- **Master ( 3중화 )**
-    - vCPU : 4
-    - RAM : 8 GB
-    - Storage : 100 GB
-    - Container Runtime : 100 GB
+- 본 프로젝트는 Disconnected 환경에서 인프라를 구축할 때 인터넷이 안되는 환경에서도 평소와 다름 없이 패키지와 Image 파일들을 사용하기 위해 아래의 작업을 진행해주었습니다.
 
-- **Infra ( 2중화 )**
-    - vCPU : 4
-    - RAM : 8 GB
-    - Storage : 100 GB
-    - Container Runtime : 100 GB
-- **Service ( 2중화 )**
-    - vCPU : 2
-    - RAM : 4 GB
-    - Storage : 100GB
-    - Container Runtime : 100GB
-- **Router**
-    - vCPU : 1
-    - RAM : 2 GB
-    - Storage : 100GB
-    - Container Runtime : 100GB
+# 2. 작업 내용
 
-# Check Lists
+![Disconnected%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%8C%E1%85%AE%E1%86%AB%E1%84%87%E1%85%B5%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC%209cb12a398ba1431d9b770f1e0080af4e/Untitled.png](Disconnected%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%8C%E1%85%AE%E1%86%AB%E1%84%87%E1%85%B5%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC%209cb12a398ba1431d9b770f1e0080af4e/Untitled.png)
 
-## 0. IP & FQDN Settings
-- IP는 아래처럼 설정해줌
+# 3. OCP 설치를 위해 필요한 것들
 
-| Server Name | FQDN | IP Address |
-|---|:---:|---:|
-| Bootstrap | bootstrap.redhat2.cccr.local | 10.10.10.10 |
-| Master #1 | master-1.redhat2.cccr.local | 10.10.10.11 |
-| Master #2 | master-2.redhat2.cccr.local | 10.10.10.12 |
-| Master #3 | master-3.redhat2.cccr.local | 10.10.10.13 |
-| Infra #1 | infra-1.redhat2.cccr.local | 10.10.10.14 |
-| Infra #2 | infra-1.redhat2.cccr.local | 10.10.10.15 |
-| Router | infra-2.edhat2.cccr.local | 10.10.10.16 |
-| bastion | bastion.edhat2.cccr.local | 10.10.10.17 |
-| Service #1 | service-1.edhat2.cccr.local | 10.10.10.18 |
-| Service #2 | service-2.edhat2.cccr.local | 10.10.10.19 |
+### URL 주소
 
-## 1. Firewall
+- **RHEL 7.8 ISO 파일 다운로드** (Bastion 노드 설치할 때 사용)
 
-| TCP | 설명 |
-|---|:---:|
-| 2379-2380| etcd server, peer, and metrics ports |
-| 6443 | Kubernetes API |
-| 9000-9999 | Host level services, including node exporter(9100-9101) and the Cluster Version Operator(9099) |
-| 10249-10259 | The default ports that Kubernetes reserves |
-| 10256 | openshift-sdn |
-| 8080 | Bastion Node`s Web file Server Port |
+[https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.8/x86_64/product-software](https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.8/x86_64/product-software)
 
-| UDP | 설명 |
-|---|:---:|
-| 9000-9999| Host level services, including the node exportet on ports 9100-9101 |
-| 30000-32767 | Kubernetes NodePort |
+- **Redhat CoreOS 파일 다운로드** (bootstrap, master, worker에 사용)
 
+    [https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/4.4.17/](https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/4.4.17/)
 
-## 2. DNS Records
+- **openshift-client**
 
-- Kubernetes API
+    [https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.4.17/](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.4.17/)
 
-    ⇒ api.<cluster_name>.<base_domain>
+### USB에 담아가야 할 파일들
 
-    ⇒ api-int.<cluster_name>.<base_domain>
+1. **oc cli 명령어**
 
-- Routes
+    openshift-client-linux-4.4.17.tar.gz
 
-    ⇒ .apps.<cluster_name>.<base_domain>
-
-- etcd
-
-    ⇒ etcd-.<cluster_name>.<base_domain>
-
-    ⇒ _ etcd-server-ssl._tcp.<cluster_name>.<base_domain>
-
-## 3. Disk & Network Interface 정보
-
-- RHCOS mini-install하여 정보를 확인해보기
-
-## 4. OCP 설치를 위한 파일 준비
-
-- URL 주소
-    - RHEL 7.7 ISO 파일 다운로드 (Bastion 노드 설치할 때 사용)
-
-    [https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.8/x86_64/product-software](https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.8/x86_64/product-software)
-
-    - CoreOS 파일 다운로드 (bootstrap, master, worker에 사용)
-
-        [https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/4.4.17/](https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/4.4.17/)
-
-    - openshift-install, openshift-client (Bastion 노드에서 사용)
-
-        [https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/)
-
-- Static IP 배포할 때
-    - rhcos-4.4.17-x86_64-installer.iso (설치할 때 필요)
-
-    - rhcos-4.4.17-x86_64-metal.raw.gz (부팅화면에서 기입)
-
-    - openshift-client-linux-4.4.17.tar.gz
-
+2. **Disconnected 환경 구축에 필요한 파일**
     - openshift-install-linux-4.4.17.tar.gz
 
-- Disconnected 환경에 가져갈 파일
+        → Image Registry 생성 후 Binary 파일을 만들 수 있음
 
-    ○ 패키지 다운을 위한 repository 압축 파일 (repos.tar.gz)
+    - 패키지 다운을 위한 repository 압축 파일 (repos.tar.gz)
 
-    ``
+    - OCP 4 배포시 필요한 이미지 압축 파일 (data.tar.gz)
 
-    ○ OCP 4 배포시 필요한 이미지 압축 파일 (data.tar.gz)
+    - 레지스트리 컨테이너 이미지 (registry.tar)
 
-    ``
+    - rhcos-4.4.17-x86_64-installer.iso (RHCOS VM 생성 시 필요)
 
-    ○ Private registry 구성을 위한 이미지 (registry.tar)
+    - rhcos-4.4.17-x86_64-metal.raw.gz (RHCOS 부팅화면에서 기입)
 
-# YUM Repository Repo 준비
+    ++ operator 파일 ( 아직 진행 X )
+
+# 4.(인터넷이 되는 환경에서)YUM Repository 준비
+
+## 순서
+
+- /etc/hosts에 domain 추가
+- subscription 등록
+- 사용할 Repository 등록
+- yum-utils, createrepo 설치
+- 사용할 Repo를 외부로부터 동기화 작업
+- tar.gz 압축
+
+## 과정
+
+- /etc/hosts에 domain name 추가
+
+```jsx
+<host-ip> bastion.redhat2.cccr.local
+```
 
 - subscription 등록 후 Repository 등록
 
@@ -151,7 +88,9 @@ subscription-manager repos \
 
 - Install packages
 
-    필요한 패키지 설치
+    yum 패키지매니저 관련 유틸리티
+
+    Repo 생성 패키지
 
 ```bash
 yum -y install yum-utils createrepo
@@ -170,7 +109,8 @@ rhel-7-server-rpms \
 rhel-7-server-extras-rpms \
 rhel-7-server-ose-4.7-rpms
 do
- reposync -n  --gpgcheck -l --repoid=${repo} --download_path=/var/repos createrepo -v  /var/repos/${repo} -o /var/repos/${repo}   
+ reposync -n --gpgcheck -l --repoid=${repo} --download_path=/var/repos
+ createrepo -v /var/repos/${repo} -o /var/repos/${repo}
 done
 
 # sh repo.sh
@@ -183,22 +123,34 @@ done
 tar cvfz repos.tar.gz /var/repos/*
 ```
 
-# Image Registry
+# 5. (인터넷이 되는 환경에서)Image Registry
+
+## 순서
+
+- oc cli 설치
+- podman, httpd-tools 설치
+- TLS 인증서 작업 → 레지스트리 등에 사용
+- htpasswd 명령어로 id,password 생성 → 레지스트리에 사용
+- Image-registry 컨테이너 생성
+- ocp 4.4 설치에 필요한 파일을 외부에서 Image registry로 복사
+- openshift-install 바이너리 파일 생성
+- 필요한 파일들 tar 압축
+
+## 과정
 
 - oc cli install
 
-[https://cloud.redhat.com/openshift/install/metal](https://cloud.redhat.com/openshift/install/metal)
-
-위 링크에서 다운로드 받을 수 있다.
+[https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.4.17/](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.4.17/)
 
 ```bash
 # yum -y install wget
 
-# wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
+# wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.4.17/openshift-client-linux.tar.gz
 
 # tar -xvf openshift-client-linux.tar.gz
 README.md
 oc
+kubectl
 
 # cp ./oc /usr/local/bin/
 # cp ./kubectl /usr/local/bin/
@@ -207,11 +159,11 @@ oc
 - version check
 
 ```bash
-[root@bastion ~]# oc version
-Client Version: 4.5.7
+# oc version
+Client Version: 4.4.17
 
-[root@bastion var]# kubectl version
-Client Version: version.Info{Major:"1", Minor:"18", GitVersion:"v1.18.2-0-g52c56ce", GitCommit:"e40bd2dd95be1106ead550990c549f932752b239", GitTreeState:"clean", BuildDate:"2020-09-04T13:51:53Z", GoVersion:"go1.13.4", Compiler:"gc", Platform:"linux/amd64"}
+# kubectl version
+~~ 1.17.0-4 ~~
 ```
 
 - 필요 Package 설치
@@ -225,7 +177,7 @@ yum -y install podman httpd-tools
 - 작업 directory 생성
 
 ```bash
-mkdir  -p /opt/registry/{auth,data,certs}
+mkdir -p /opt/registry/{auth,data,certs}
 ```
 
 - Certificate 작업
@@ -254,9 +206,9 @@ Locality Name (eg, city) [Default City]:seoul
 Organization Name (eg, company) [Default Company Ltd]:cccr
 Organizational Unit Name (eg, section) []:student
 Common Name (eg, your name or your server's hostname) []:bastion.redhat.cccr.local
-Email Address []:xogns556@naver.com
+Email Address []:hyukjin1994@gmail.com
 
-cp  /opt/registry/certs/domain.crt /etc/pki/ca-trust/source/anchors/
+cp /opt/registry/certs/domain.crt /etc/pki/ca-trust/source/anchors/
 
 update-ca-trust extract
 ```
@@ -277,8 +229,9 @@ jq-1.6
 - base64로 인코딩 된 user,password token 생성
 
 ```bash
+htpasswd -bBc /opt/registry/auth/htpasswd devops dkagh1.
+
 echo -n 'devops:dkagh1.'| base64 -w0
-dGVzdDoxMjM0
 ```
 
 - Pull Secret 생성
@@ -313,9 +266,9 @@ dGVzdDoxMjM0
       "auth": "fHVoYy0xZ3BTVEtvZ1pQY2JoV3FhZjF3aVl5TXRyeFc6ZXlKaGJHY2lPaUpTVXpVeE1pSjkuZXlKemRXSWlPaUpsTlRreU1UVmpZVEUxTnprME16azNPVEUyTVdJek56WTBNRFZqWXpNMVlTSjkucWZrSGZpSWk0ZDFnbmtJclFIQkZrVFZtZDdMYzVkZkFOTmNRbVV0MkJRcDVrLVR4MmhoUWk1bzFKeFg0cFZDYW95MWh0a0FGR3BnelBHYmxPYUc5ZTdVNWZVbVVSSW5MNE4wVTEzcHJTRGRRbUlwVDlia2FfNG0xZUs4YjJ2T29CcjBZbklWNHZHR2gxQTc5UThIOWJTMW5CMTdSUERTbWJfcml1RUxoazV5Q3l3ZzBvVTcyeXRuaU56dl9YaEtvQXB0YVBpNDFmOHVQbS1DVFJfMHFsd0VzOUtjVHMzVjdRbXByX3hKSko4dVMwZDBOalg1QTJtZmQ1c3N6azYzVzQ5Qm0yYmRiNVV5MnpGRWlCQnNEd1Z6eVBNbmNGYXBfV0VEaGs3R2JCemxBY3hrR1JuNkNuMVljVFFqZHEtRU8wcjNZOWJuSjg1Vk5Fak1kalhucy0xLVFkNVh4YUFyQ0FHa0NwWHp3aWtrYW90cXVTbTZwVUdMM0JiMGVQV0x2Wk1xMnVZaWs3cnY2UTdtYjNoaGs3TEJYQ2czSmRNNU9yRUMzVlBjU1dUOFdvZTZwOGQtYnhPUW9SR2toMjcwdlY0UEVjLTBMUGlDWnhyUEc2ZkdYbUxlZEdJbFpfdUlET1RYT1hWSkhmZWtpVkdROWZuQ3hSXzc1bDU4b0tnWHVQZWlLTzNPLW5lXzJKR3BrbFZBVmVqTDZWSHlxWG1XU0NFU0R1b05lQjNZWDZNUWNzX2w5WHQ0UmpUcjFWaWRud2xqaGNMUUFTLWxHeW44dUxkQ2pFNHVkS0lORzQzN2IyN0tiUHNzYkJIRzk2UVZIcVppaDktUWFlR2hvcTQ3QjJoQmxad2x0eW9RMTRObnlwT0xzajM1c1pXRGNac3lBcnJjSFQwQUVyRGc=",
       "email": "xogns556@naver.com"
     },
-"bastion.redhat.cccr.local:5000": { 
-      "auth": "dGVzdDoxMjM0", 
-      "email": "xogns556@naver.com"
+"bastion.redhat2.cccr.local:5000": { 
+      "auth": "<<paste-here>>", 
+      "email": "hyukjun1994@gmail.com"
   },
     "registry.redhat.io": {
       "auth": "fHVoYy0xZ3BTVEtvZ1pQY2JoV3FhZjF3aVl5TXRyeFc6ZXlKaGJHY2lPaUpTVXpVeE1pSjkuZXlKemRXSWlPaUpsTlRreU1UVmpZVEUxTnprME16azNPVEUyTVdJek56WTBNRFZqWXpNMVlTSjkucWZrSGZpSWk0ZDFnbmtJclFIQkZrVFZtZDdMYzVkZkFOTmNRbVV0MkJRcDVrLVR4MmhoUWk1bzFKeFg0cFZDYW95MWh0a0FGR3BnelBHYmxPYUc5ZTdVNWZVbVVSSW5MNE4wVTEzcHJTRGRRbUlwVDlia2FfNG0xZUs4YjJ2T29CcjBZbklWNHZHR2gxQTc5UThIOWJTMW5CMTdSUERTbWJfcml1RUxoazV5Q3l3ZzBvVTcyeXRuaU56dl9YaEtvQXB0YVBpNDFmOHVQbS1DVFJfMHFsd0VzOUtjVHMzVjdRbXByX3hKSko4dVMwZDBOalg1QTJtZmQ1c3N6azYzVzQ5Qm0yYmRiNVV5MnpGRWlCQnNEd1Z6eVBNbmNGYXBfV0VEaGs3R2JCemxBY3hrR1JuNkNuMVljVFFqZHEtRU8wcjNZOWJuSjg1Vk5Fak1kalhucy0xLVFkNVh4YUFyQ0FHa0NwWHp3aWtrYW90cXVTbTZwVUdMM0JiMGVQV0x2Wk1xMnVZaWs3cnY2UTdtYjNoaGs3TEJYQ2czSmRNNU9yRUMzVlBjU1dUOFdvZTZwOGQtYnhPUW9SR2toMjcwdlY0UEVjLTBMUGlDWnhyUEc2ZkdYbUxlZEdJbFpfdUlET1RYT1hWSkhmZWtpVkdROWZuQ3hSXzc1bDU4b0tnWHVQZWlLTzNPLW5lXzJKR3BrbFZBVmVqTDZWSHlxWG1XU0NFU0R1b05lQjNZWDZNUWNzX2w5WHQ0UmpUcjFWaWRud2xqaGNMUUFTLWxHeW44dUxkQ2pFNHVkS0lORzQzN2IyN0tiUHNzYkJIRzk2UVZIcVppaDktUWFlR2hvcTQ3QjJoQmxad2x0eW9RMTRObnlwT0xzajM1c1pXRGNac3lBcnJjSFQwQUVyRGc=",
@@ -323,7 +276,7 @@ dGVzdDoxMjM0
     }
   }
 }
--> bastion.redhat.cccr.local:5000 부분 추가
+-> 빨간 부분 추가
 
 → image registry Domain Name, Port 기입
 
@@ -357,8 +310,7 @@ podman run --name mirror-registry -p 5000:5000 \
 -e REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED=true \
 -d docker.io/library/registry:2
 
-# curl로 repo test
-curl -u test:1234 -k https://bastion.cccr.local:5000/v2/_catalog
+curl -u devops:dkagh1. -k https://bastion.cccr.local:5000/v2/_catalog
 {"repositories":[]}
 ```
 
@@ -369,7 +321,7 @@ curl -u test:1234 -k https://bastion.cccr.local:5000/v2/_catalog
 ```bash
 # vi /opt/registry/mirror.sh
 
-OCP_RELEASE=4.4.10-x86_64
+OCP_RELEASE=4.4.17-x86_64
 LOCAL_REGISTRY='bastion.redhat2.cccr.local:5000'
 LOCAL_REPOSITORY=ocp4/openshift4
 PRODUCT_REPO='openshift-release-dev'
@@ -392,7 +344,7 @@ bastion.cccr.local:5000/
 ..
 ..
 ..
-# 아래 부분 복사해놓기, install-config.yaml 에서 사용함
+
 **imageContentSources:
 - mirrors:
   - bastion.redhat2.cccr.local:5000/ocp4/openshift4
@@ -402,16 +354,86 @@ bastion.cccr.local:5000/
   source: quay.io/openshift-release-dev/ocp-v4.0-art-dev**
 ```
 
+- openshift-install 바이너리 파일 생성
+
+```bash
+oc adm -a ${LOCAL_SECRET_JSON} release extract --command=openshift-install "${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}"
+```
+
 - 이미지 압축
 
 ```bash
 tar -cvfz data.tar.gz /opt/registry/data
 ```
 
-- Private Registry 구성을 위한 Image 준비
+- Image Registry 구성을 위한 Image 준비
 
 ```bash
 podman images
 
 podman save -o registry.tar docker.io/library/registry:2
+```
+
+# 6. (폐쇠망) Disconnected 환경에서 작업
+
+- 폐쇠망에서는 인터넷을 통해 http 등의 패키지 조차 설치할 수 없으므로 가져온 repo 디렉터리를 통해 패키지 설치를 할 수 있도록 설정해주어야 한다.
+
+![Disconnected%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%8C%E1%85%AE%E1%86%AB%E1%84%87%E1%85%B5%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC%209cb12a398ba1431d9b770f1e0080af4e/Untitled_Diagram.svg](Disconnected%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%8C%E1%85%AE%E1%86%AB%E1%84%87%E1%85%B5%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC%209cb12a398ba1431d9b770f1e0080af4e/Untitled_Diagram.svg)
+
+## 1. Yum Repository
+
+- (폐쇠망) repos.tar.gz 압축 푼 후 디렉터리 baseurl로 지정
+
+```bash
+cd /etc/yum.repos.d/
+
+# vim local.repo
+[base]
+name=local repo
+baseurl=file:///var/www/html/repo
+enabled=1
+gpgcheck=0
+```
+
+## 2. Image Registry
+
+- data.tar.gz 파일 압축 풀기
+
+- auth, certs 디렉터리도 생성한 후 위와 동일하게 나머지 작업
+
+    (인증, 인증서 생성)
+
+- registry.tar → Bastion으로 옮긴 후
+
+```bash
+podman load -i registry.tar
+
+podman images
+REPOSITORY           TAG               IMAGE ID            CREATED        SIZE
+...                  ...               2d4f....
+
+=> Image Hash 값 알아내기
+```
+
+- Registry 구축하기
+
+```bash
+podman run --name mirror-registry -p 5000:5000 \
+-v /opt/registry/data:/var/lib/registry:z \
+-v /opt/registry/auth:/auth:z \
+-v /opt/registry/certs:/certs:z \
+-e "REGISTRY_AUTH=htpasswd" \
+-e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" \
+-e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \
+-e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+-e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+-e REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED=true \
+-d 2d4
+```
+
+- Test
+
+```bash
+curl -u devops:dkagh1. -k https://bastion.cccr.local:5000/v2/_catalog
+{"repositories":[]}
 ```
