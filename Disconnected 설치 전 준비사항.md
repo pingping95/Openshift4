@@ -6,7 +6,7 @@
 
 # 2. 작업 내용
 
-![Disconnected%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%8C%E1%85%AE%E1%86%AB%E1%84%87%E1%85%B5%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC%209cb12a398ba1431d9b770f1e0080af4e/Untitled.png](Disconnected%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%8C%E1%85%AE%E1%86%AB%E1%84%87%E1%85%B5%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC%209cb12a398ba1431d9b770f1e0080af4e/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/67780144/94328282-249f3600-ffec-11ea-86e2-4b208fba61fb.png)
 
 # 3. OCP 설치를 위해 필요한 것들
 
@@ -378,7 +378,8 @@ podman save -o registry.tar docker.io/library/registry:2
 
 - 폐쇠망에서는 인터넷을 통해 http 등의 패키지 조차 설치할 수 없으므로 가져온 repo 디렉터리를 통해 패키지 설치를 할 수 있도록 설정해주어야 한다.
 
-![Disconnected%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%8C%E1%85%AE%E1%86%AB%E1%84%87%E1%85%B5%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC%209cb12a398ba1431d9b770f1e0080af4e/Untitled_Diagram.svg](Disconnected%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8E%E1%85%B5%20%E1%84%8C%E1%85%A5%E1%86%AB%20%E1%84%8C%E1%85%AE%E1%86%AB%E1%84%87%E1%85%B5%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC%209cb12a398ba1431d9b770f1e0080af4e/Untitled_Diagram.svg)
+![Untitled 1](https://user-images.githubusercontent.com/67780144/94328284-25d06300-ffec-11ea-9014-0b9a3adc5837.png)
+
 
 ## 1. Yum Repository
 
