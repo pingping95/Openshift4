@@ -8,7 +8,9 @@
     - cluster에서 실행되는 모든 operator 및 관련 서비스의 Lifecycle를 설치, 업데이트 및 관리를 담당
     - k8s Native Application (Operator)을 효과적이고 자동화하고 확장 가능한 방식으로 관리하도록 설계 된 Open Source Tool인 Operator Framework의 일부이다.
 
-![Operator%20%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A2,%20Architecture%202f6a97ee21ff4f2fba66f57f6e058400/Untitled.png](Operator%20%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A2,%20Architecture%202f6a97ee21ff4f2fba66f57f6e058400/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/67780144/94356449-c9437580-00c9-11eb-862c-95a5895c6ad2.png)
+
+
 
 - OLM Workflow
 
@@ -35,13 +37,13 @@
 
 - CatalogSource 개요
 
-![Operator%20%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A2,%20Architecture%202f6a97ee21ff4f2fba66f57f6e058400/Untitled%201.png](Operator%20%E1%84%8B%E1%85%B5%E1%84%92%E1%85%A2,%20Architecture%202f6a97ee21ff4f2fba66f57f6e058400/Untitled%201.png)
+![Untitled 1](https://user-images.githubusercontent.com/67780144/94356452-cc3e6600-00c9-11eb-8fed-c104e508cf56.png)
 
 ---
 
 - 출처
 
-    호롤리님의 블로그 인용, 4.3 버전이지만 잘 정리되어 있어 가져왔다.
+    아래부터는 호롤리님의 블로그에서 가져옴, 4.3 버전이지만 잘 정리되어 있어 가져왔다.
 
     [https://gruuuuu.github.io/ocp/ocp-control-plane/#](https://gruuuuu.github.io/ocp/ocp-control-plane/#)
 
