@@ -1,9 +1,5 @@
 # Openshift 4.4 Architecture
 
-Created: Oct 3, 2020 10:59 AM
-Created By: taehun kim
-Last Edited By: taehun kim
-Last Edited Time: Oct 3, 2020 11:04 AM
 
 # 프로젝트 주요 목표
 
