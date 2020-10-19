@@ -22,7 +22,8 @@
 
 # Quay Architecture
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/67780144/96406452-71a4af80-121a-11eb-8d76-a9cfc4925ef4.png)
+
 
 - On-Premise든 Public Cloud든 어떤 Infrastructure와 호환된다.
 - 하지만 Openshift 에서 사용하는 것이 가장 권장된다.
@@ -31,7 +32,8 @@
 
 - AWS
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%201.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%201.png)
+![Untitled 1](https://user-images.githubusercontent.com/67780144/96406457-736e7300-121a-11eb-897b-b28303ee2477.png)
+
 
 - 2개의 가용 영역 (Available Zone)으로 고가용성을 구현할 수 있으며 Front 단에 AWS ELB를 두어 로드밸런싱을 한다.
 - Backend 단에는 RDB, ElasticCache Redis, S3를 두어 백단을 구성한다.
@@ -58,9 +60,10 @@
 
 # Disconnected / Air-Gapped 환경에서의 Quay
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%202.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%202.png)
+![Untitled 2](https://user-images.githubusercontent.com/67780144/96406458-74070980-121a-11eb-9333-94a0f91cb59b.png)
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%203.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%203.png)
+
+![Untitled 3](https://user-images.githubusercontent.com/67780144/96406464-75383680-121a-11eb-9bcf-9bdf4b9a0b83.png)
 
 - 첫 번째 Architecture는 현재 Quay Release
     - Quay가 외부 Source 레지스트리 (operatorhub.io나 RedHat Container Catalog, ..) 으로부터 Image들을 받아와 Mirroring하고 Clair을 통해 CVE Metadata를 Fetch한다.
@@ -71,7 +74,7 @@
 
 # Clair Overview
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%204.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%204.png)
+![Untitled 4](https://user-images.githubusercontent.com/67780144/96406465-75383680-121a-11eb-8d0f-2d98900cc58e.png)
 
 - Application Container들에 대한 취약성을 검사하는 정적 분석 Tool Open Source이다.
 - Quay를 위해 CoreOS에 의해 개발되었다.
@@ -92,7 +95,7 @@
 
 # Repo Mirroring
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%205.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%205.png)
+![Untitled 5](https://user-images.githubusercontent.com/67780144/96406466-75d0cd00-121a-11eb-8170-7c176dede6f2.png)
 
 - Whitelisted 컨텐츠를 Quay로 얻어오기
 - 단일 Trust Source
@@ -101,17 +104,17 @@
 
 # Repo Mirroring - Registry Mirroring Tree
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%206.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%206.png)
+![Untitled 6](https://user-images.githubusercontent.com/67780144/96406469-76696380-121a-11eb-8982-2011eb77ca68.png)
 
 # Quay Recommendations
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%207.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%207.png)
+![Untitled 7](https://user-images.githubusercontent.com/67780144/96406471-7701fa00-121a-11eb-890d-dcea7633f6a3.png)
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%208.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%208.png)
+![Untitled 8](https://user-images.githubusercontent.com/67780144/96406475-78332700-121a-11eb-8cf7-bdf220309218.png)
 
 # Red Hat Quay 고가용성
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%209.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%209.png)
+![Untitled 9](https://user-images.githubusercontent.com/67780144/96406477-78cbbd80-121a-11eb-8759-4b2d59171b7c.png)
 
 - HAProxy 등을 통한 고객사의 HA 혹은 Load Balancing
 - Stateless Quay 컴포넌트 고가용성 k8s나 Openshift Auto-Healing) 권장 사항 : 적어도 3개의 Quay, Clair, Mirroring 파드들
@@ -121,7 +124,7 @@
 
 # Storage Backend를 위한 HA - RHCOS 4
 
-![Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%2010.png](Quay%20&%20Clair%20Architecture%20d91c1c0b50054cf08a4bc709abab5e93/Untitled%2010.png)
+![Untitled 10](https://user-images.githubusercontent.com/67780144/96406479-79645400-121a-11eb-8cd5-331b68102da8.png)
 
 - 용어 정리
 
